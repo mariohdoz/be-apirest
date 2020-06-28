@@ -1,0 +1,36 @@
+{
+  "name": "be-apirest",
+  "version": "1.0.0",
+  "description": "api restful",
+  "main": "server/index.js",
+  "scripts": {
+    "start": "node server/index",
+    "dev": "nodemon server/index",
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mariohdoz/be-apirest.git"
+  },
+  "author": "Mario Ossandón Z.",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mariohdoz/be-apirest/issues"
+  },
+  "homepage": "https://github.com/mariohdoz/be-apirest#readme",
+  "dependencies": {
+    "bcrypt": "^5.0.0",
+    "body-parser": "^1.19.0",
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "express-fileupload": "^1.1.7-alpha.3",
+    "helmet": "^3.23.2",
+    "mongoose": "^5.9.20",
+    "mongoose-unique-validator": "^2.0.3",
+    "underscore": "^1.10.2"
+  },
+  "devDependencies": {
+    "jest": "^26.1.0",
+    "nodemon": "^2.0.4"
+  }
+}
