@@ -3,7 +3,7 @@
 const bcrypt = require('bcrypt');
 const _ = require('underscore');
 
-const Usuario = require("../models/usuarioModel");
+const Usuario = require("../models/usuario.model");
 
 exports.insertar_usuario = (req, res) => {
   
@@ -26,7 +26,7 @@ exports.insertar_usuario = (req, res) => {
                 });
     }
 
-    res.status(200)
+    res.status(201)
         .json({
             status: true,
             message: 'Usuario registrado correctamente',
