@@ -30,10 +30,67 @@ exports.insertar_usuario = (req, res) => {
         .json({
             status: true,
             message: 'Usuario registrado correctamente',
-            usuario: usuario_guardado
+            usuario: usuario_guardado,
+            id: usuario_guardado._id
         });
 
   });
 
 
+};
+
+exports.actualizar_usuario = (req, res) => {
+
+  const id = req.params.id;
+  const body = _.pick(req.body, ['nombre', 'email', 'img', 'role', 'estado']);
+
+  Usuario.findOneAndUpdate({ _id: id }, body, { runValidators: true, context: 'query', new: true }, (err, usuarioDB)=>{
+    if (err) {
+      return res.status(400).json({
+        ok: false,
+        mensaje: err
+      });
+    }
+
+    if (!usuarioDB) {
+      return res.status(400).json({
+        ok: false,
+        mensaje: 'Usuario no registrado'
+      });
+    }
+
+    return res.status(200).json({
+      ok: true,
+      mensaje: 'Usuario actualizado',
+      usuario: usuarioDB
+    });
+
+  });
+
+};
+
+exports.eliminar_usuario = (req, res) => {
+  let id = req.params.id;
+
+  Usuario.findOneAndUpdate( {_id: id, estado: true}, { estado: false }, { runValidators: true, context: 'query', new: true }, (err, usuarioDB) => {
+    if (err) {
+      return res.status(400).json({
+        ok: false,
+        mensaje: err
+      });
+    }
+
+    if (!usuarioDB) {
+      return res.status(400).json({
+        ok: false,
+        mensaje: 'Usuario no registrado'
+      });
+    }
+    
+    return res.status(200).json({
+      ok: true,
+      mensaje: 'Usuario eliminado'
+    });
+
+  });
 };
