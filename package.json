@@ -6,7 +6,8 @@
   "scripts": {
     "start": "node server/start",
     "dev": "nodemon server/start",
-    "test": "jest"
+    "test": "jest",
+    "lint": "eslint"
   },
   "repository": {
     "type": "git",
@@ -25,11 +26,13 @@
     "express": "^4.17.1",
     "express-fileupload": "^1.1.7-alpha.3",
     "helmet": "^3.23.2",
+    "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.9.20",
     "mongoose-unique-validator": "^2.0.3",
     "underscore": "^1.10.2"
   },
   "devDependencies": {
+    "eslint": "^7.4.0",
     "jest": "^26.1.0",
     "nodemon": "^2.0.4",
     "supertest": "^4.0.2"

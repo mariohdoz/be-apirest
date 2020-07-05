@@ -81,10 +81,26 @@ describe('Post Endpoints de usuarios', () => {
         let aux_usuario = JSON.parse(res.text);
 
         expect(res.statusCode).toEqual(200);
-        expect(aux_usuario.ok).toBeTruthy();
+        expect(aux_usuario.status).toBeTruthy();
 
         done();
 
+    });
+
+    it('Debe eliminar usuario', async done => {
+        const res = await request(app)
+                            .delete('/usuario/' + usuario_id)
+    
+        let aux_usuario = JSON.parse(res.text);
+
+        console.log(aux_usuario.usuario.estado);
+
+        expect(res.statusCode).toEqual(200);
+        expect(aux_usuario.usuario._id).toEqual(usuario_id);
+        expect(aux_usuario.status).toBeTruthy();
+        expect(aux_usuario.usuario.estado).toBeFalsy();
+
+        done();
     });
 
 });
