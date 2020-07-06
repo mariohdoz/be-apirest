@@ -1,8 +1,25 @@
 const app = require('../../server/server')
 const request = require("supertest");
-const mongoose = require('mongoose')
+const mongoose = require('mongoose');
+const { before } = require('underscore');
 
 const usuario = "jest-" + Date.now() + '@gmail.com';
+
+beforeAll( done => {
+    request(app)
+        .post("/login")
+        .send({
+            email: 'test@gmail.com',
+            password: '123456a',
+        })
+        .end((err, response) => {
+
+            console.log(response.body.token);
+
+            token = response.body.token; // save the token!
+            done();
+        });
+});
 
 afterAll((done) => {
   mongoose.connection.close();
@@ -72,6 +89,7 @@ describe('Post Endpoints de usuarios', () => {
         
         const res = await request(app)
                         .put('/usuario/' + usuario_id)
+                        .set('Authorization', token)
                         .send({
                             nombre: 'Nuevo nombre',
                             role: 'USER_ROLE',
@@ -90,10 +108,11 @@ describe('Post Endpoints de usuarios', () => {
     it('Debe eliminar usuario', async done => {
         const res = await request(app)
                             .delete('/usuario/' + usuario_id)
+                            .set('Authorization', token);
     
         let aux_usuario = JSON.parse(res.text);
 
-        console.log(aux_usuario.usuario.estado);
+        console.log(res.body);
 
         expect(res.statusCode).toEqual(200);
         expect(aux_usuario.usuario._id).toEqual(usuario_id);
